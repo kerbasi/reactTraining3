@@ -3,16 +3,17 @@ import finnHub from "../apis/finnHub";
 
 export const StockList = () => {
   const [stock, setStock] = useState([]);
+  const [watchList, setWatchList] = useState(["GOOGL", "MSFT", "AMZN"]);
 
   useEffect(() => {
     let isMounted = true;
-    const fetchData = async (symbols) => {
+    const fetchData = async () => {
       try {
         const responses = await Promise.all(
-          symbols.map((item) =>
+          watchList.map((stock) =>
             finnHub.get("/quote", {
               params: {
-                symbol: item,
+                symbol: stock,
               },
             })
           )
@@ -23,7 +24,7 @@ export const StockList = () => {
       } catch (err) {}
     };
 
-    fetchData(["GOOGL", "MSFT", "AMZN"]);
+    fetchData();
     return () => {
       isMounted = false;
     };

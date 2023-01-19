@@ -1,11 +1,11 @@
 ﻿import { useState, useEffect } from "react";
 import { BsFillCaretUpFill, BsFillCaretDownFill } from "react-icons/bs";
+import { useAppContext } from "../context";
 import finnHub from "../apis/finnHub";
 
 export const StockList = () => {
   const [stock, setStock] = useState([]);
-  const [watchList, setWatchList] = useState(["GOOGL", "MSFT", "AMZN"]);
-
+  const { watchList, setWatchList } = useAppContext();
   useEffect(() => {
     let isMounted = true;
     const fetchData = async () => {
@@ -36,7 +36,7 @@ export const StockList = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [watchList]);
 
   const changeColor = (change) => {
     return change > 0 ? "success" : change < 0 ? "danger" : "";
@@ -51,6 +51,9 @@ export const StockList = () => {
       ""
     );
   };
+
+  const data = useAppContext();
+  console.log(data);
 
   return (
     <div>
@@ -70,7 +73,11 @@ export const StockList = () => {
         <tbody>
           {stock.map((stockData) => {
             return (
-              <tr className='table-row' style={{ cursor: "pointer" }}>
+              <tr
+                className='table-row'
+                style={{ cursor: "pointer" }}
+                key={stockData.symbol}
+              >
                 <th scope='row'>{stockData.symbol}</th>
                 <td>{stockData.data.c}</td>
                 <td className={`text-${changeColor(stockData.data.d)}`}>

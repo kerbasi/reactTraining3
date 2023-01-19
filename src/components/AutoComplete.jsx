@@ -1,10 +1,11 @@
 ﻿import { useState, useEffect } from "react";
+import { useAppContext } from "../context";
 import finnHub from "../apis/finnHub";
 
 export const AutoComplete = () => {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
-  const [selected, setSelected] = useState([]);
+  const { setWatchList } = useAppContext();
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -23,9 +24,9 @@ export const AutoComplete = () => {
               className='dropdown-item'
               key={result.symbol}
               onClick={() => {
-                setSelected((prevResult) => {
-                  console.log(prevResult);
-                  return [...prevResult, result];
+                setWatchList((prevList) => {
+                  console.log(prevList);
+                  return [...prevList, result.symbol];
                 });
                 setSearch("");
               }}

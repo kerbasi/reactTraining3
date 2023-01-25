@@ -21,7 +21,7 @@ export const StockData = ({ symbol }) => {
   return (
     <div>
       {stockData && (
-        <div className='row border bg-white rounded shadow-sm p-4 mt-5'>
+        <div className='row border bg-white rounded shadow-sm p-4 mt-4'>
           <div className='col'>
             <div>
               <span className='fw-bold'>name: </span>

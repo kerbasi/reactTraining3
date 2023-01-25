@@ -5,7 +5,7 @@ import finnHub from "../apis/finnHub";
 export const AutoComplete = () => {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
-  const { setWatchList } = useAppContext();
+  const { watchListUpdate } = useAppContext();
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -18,23 +18,22 @@ export const AutoComplete = () => {
         className={`dropdown-menu ${dropdownClass}`}
         style={{ height: "200px", width: "100%", overflowY: "scroll" }}
       >
-        {results.map((result) => {
-          return (
-            <li
-              className='dropdown-item'
-              key={result.symbol}
-              onClick={() => {
-                setWatchList((prevList) => {
-                  console.log(prevList);
-                  return [...prevList, result.symbol];
-                });
-                setSearch("");
-              }}
-            >
-              {result.description} ({result.symbol})
-            </li>
-          );
-        })}
+        {results
+          .filter((result) => !result.symbol.includes("."))
+          .map((result) => {
+            return (
+              <li
+                className='dropdown-item'
+                key={result.symbol}
+                onClick={() => {
+                  watchListUpdate(result.symbol);
+                  setSearch("");
+                }}
+              >
+                {result.description} ({result.symbol})
+              </li>
+            );
+          })}
       </ul>
     );
   };

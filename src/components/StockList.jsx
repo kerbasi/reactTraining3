@@ -1,4 +1,5 @@
 ﻿import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import { BsFillCaretUpFill, BsFillCaretDownFill } from "react-icons/bs";
 import { useAppContext } from "../context";
 import finnHub from "../apis/finnHub";
@@ -52,6 +53,12 @@ export const StockList = () => {
     );
   };
 
+  const navigate = useNavigate();
+
+  const handleStockSelect = (symbol) => {
+    navigate(`detail/${symbol}`);
+  };
+
   const data = useAppContext();
   console.log(data);
 
@@ -77,6 +84,7 @@ export const StockList = () => {
                 className='table-row'
                 style={{ cursor: "pointer" }}
                 key={stockData.symbol}
+                onClick={() => handleStockSelect(stockData.symbol)}
               >
                 <th scope='row'>{stockData.symbol}</th>
                 <td>{stockData.data.c}</td>

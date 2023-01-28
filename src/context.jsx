@@ -3,7 +3,7 @@
 const AppContext = createContext();
 
 export default ({ children }) => {
-  const [watchList, setWatchList] = useState(["GOOGL", "MSFT", "AMZN"]);
+  const [watchList, setWatchList] = useState([]);
 
   const watchListUpdate = (symbol) => {
     if (!watchList.includes(symbol)) {
@@ -11,8 +11,12 @@ export default ({ children }) => {
     }
   };
 
+  const deleteStock = (symbol) => {
+    setWatchList(watchList.filter((stock) => stock.symbol !== symbol));
+  };
+
   return (
-    <AppContext.Provider value={{ watchList, watchListUpdate }}>
+    <AppContext.Provider value={{ watchList, watchListUpdate, deleteStock }}>
       {children}
     </AppContext.Provider>
   );

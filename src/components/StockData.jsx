@@ -5,17 +5,20 @@ export const StockData = ({ symbol }) => {
   const [stockData, setStockData] = useState();
 
   useEffect(() => {
+    // let isMounted = true;
     const fetchData = async () => {
       const response = await finnHub.get("/stock/profile2?", {
         params: {
           symbol,
         },
       });
-      console.log(response.data);
+      // if (isMounted) {
       setStockData(response.data);
+      // }
     };
 
     fetchData();
+    // return (isMounted = false);
   }, [symbol]);
 
   return (

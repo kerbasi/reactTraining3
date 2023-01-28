@@ -16,7 +16,13 @@ export const StockChart = ({ symbol, stockData }) => {
     }
   };
 
+  const color =
+    determinateDate()[0].y < determinateDate()[determinateDate().length - 1].y
+      ? "#26C281"
+      : "#ed3419";
+
   const options = {
+    colors: [color],
     chart: {
       id: "stock data",
       animations: {

@@ -5,12 +5,15 @@ import { StockChart } from "../components/StockChart";
 import { StockData } from "../components/StockData";
 
 const formatData = (data) => {
-  return data.t.map((t, index) => {
-    return {
-      x: t * 1000,
-      y: Math.floor(data.c[index]),
-    };
-  });
+  if (data.t) {
+    return data.t.map((t, index) => {
+      return {
+        x: t * 1000,
+        y: Math.floor(data.c[index]),
+      };
+    });
+  }
+  return null;
 };
 
 export const StockDetailPage = () => {
@@ -18,6 +21,7 @@ export const StockDetailPage = () => {
   const [stockData, setStockData] = useState();
 
   useEffect(() => {
+    let isMounted = true;
     const fetchData = async () => {
       const date = new Date();
       const today = Math.floor(date.getTime() / 1000);
@@ -58,16 +62,19 @@ export const StockDetailPage = () => {
             },
           }),
         ]);
-        setStockData({
-          day: formatData(responses[0].data),
-          week: formatData(responses[1].data),
-          year: formatData(responses[2].data),
-        });
+        if (isMounted) {
+          setStockData({
+            day: formatData(responses[0].data),
+            week: formatData(responses[1].data),
+            year: formatData(responses[2].data),
+          });
+        }
       } catch (err) {
         console.log(err);
       }
     };
     fetchData();
+    return (isMounted = false);
   }, [symbol]);
 
   return (

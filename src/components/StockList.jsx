@@ -96,16 +96,18 @@ export const StockList = () => {
                   <td>{stockData.data.l}</td>
                   <td>{stockData.data.o}</td>
                   <td>
-                    {stockData.data.pc}{" "}
-                    <button
-                      className='btn btn-danger btn-sm ml-3 d-inline-block delete-button'
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        deleteStock(stockData.symbol);
-                      }}
-                    >
-                      Remove
-                    </button>
+                    <div>
+                      {stockData.data.pc}
+                      <button
+                        className='btn btn-danger btn-sm ml-3 d-inline-block delete-button'
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteStock(stockData.symbol);
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </td>
                 </tr>
               );

@@ -3,7 +3,11 @@
 const AppContext = createContext();
 
 export default ({ children }) => {
-  const [watchList, setWatchList] = useState([]);
+  const [watchList, setWatchList] = useState(
+    localStorage.getItem("watchList")
+      ? JSON.parse(localStorage.getItem("watchList"))
+      : ["GOOGL", "AMZN", "TSLA", "RBLX"]
+  );
 
   const watchListUpdate = (symbol) => {
     if (!watchList.includes(symbol)) {
@@ -16,7 +20,7 @@ export default ({ children }) => {
   };
 
   useEffect(() => {
-    console.log(watchList);
+    localStorage.setItem("watchList", JSON.stringify(watchList));
   }, [watchList]);
 
   return (

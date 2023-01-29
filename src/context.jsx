@@ -1,4 +1,4 @@
-﻿import { createContext, useContext, useState } from "react";
+﻿import { createContext, useContext, useState, useEffect } from "react";
 
 const AppContext = createContext();
 
@@ -12,8 +12,12 @@ export default ({ children }) => {
   };
 
   const deleteStock = (symbol) => {
-    setWatchList(watchList.filter((stock) => stock.symbol !== symbol));
+    setWatchList(watchList.filter((stock) => stock !== symbol));
   };
+
+  useEffect(() => {
+    console.log(watchList);
+  }, [watchList]);
 
   return (
     <AppContext.Provider value={{ watchList, watchListUpdate, deleteStock }}>

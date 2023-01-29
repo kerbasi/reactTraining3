@@ -74,7 +74,7 @@ export const StockDetailPage = () => {
       }
     };
     fetchData();
-    return (isMounted = false);
+    return () => (isMounted = false);
   }, [symbol]);
 
   return (

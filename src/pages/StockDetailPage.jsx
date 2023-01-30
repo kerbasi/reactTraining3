@@ -1,4 +1,4 @@
-﻿import { useParams } from "react-router-dom";
+﻿import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import finnHub from "../apis/finnHub";
 import { StockChart } from "../components/StockChart";
@@ -30,6 +30,12 @@ export const StockDetailPage = () => {
         oneDay = today - 24 * 60 * 60 * 2;
       } else if (date.getDay() === 0) {
         oneDay = today - 24 * 60 * 60 * 3;
+      } else if (date.getDay() === 1) {
+        if (date.getHours() < 11) {
+          oneDay = today - 24 * 60 * 60 * 4;
+        } else {
+          oneDay = today - 24 * 60 * 60;
+        }
       } else {
         oneDay = today - 24 * 60 * 60;
       }
@@ -77,10 +83,24 @@ export const StockDetailPage = () => {
     return () => (isMounted = false);
   }, [symbol]);
 
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate("/");
+  };
+
   return (
     <div>
+      {console.log(stockData)}
       {stockData && (
         <div>
+          <button
+            type='button'
+            className='btn btn-outline-primary btn-sm px-5 p-2 position-absolute top-10'
+            onClick={handleBackClick}
+          >
+            Back
+          </button>
           <StockChart stockData={stockData} symbol={symbol} />
           <StockData symbol={symbol} />
         </div>

@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { BsFillCaretUpFill, BsFillCaretDownFill } from "react-icons/bs";
+import { ImCross } from "react-icons/im";
 import { useAppContext } from "../context";
 import finnHub from "../apis/finnHub";
 
@@ -97,15 +98,16 @@ export const StockList = () => {
                   <td>{stockData.data.o}</td>
                   <td>
                     <div>
-                      {stockData.data.pc}
+                      {stockData.data.pc}{" "}
                       <button
-                        className='btn btn-danger btn-sm ml-3 d-inline-block delete-button'
+                        type='button'
+                        className='btn btn-outline-danger btn-sm ml-3 px-2 pb-2 d-inline-block delete-button'
                         onClick={(e) => {
                           e.stopPropagation();
                           deleteStock(stockData.symbol);
                         }}
                       >
-                        Remove
+                        <ImCross />
                       </button>
                     </div>
                   </td>

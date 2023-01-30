@@ -15,7 +15,7 @@ export const StockChart = ({ symbol, stockData }) => {
         return year;
     }
   };
-
+  console.log(determinateDate());
   const color =
     determinateDate()[0].y < determinateDate()[determinateDate().length - 1].y
       ? "#26C281"

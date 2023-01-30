@@ -16,7 +16,12 @@ export const AutoComplete = () => {
     return (
       <ul
         className={`dropdown-menu ${dropdownClass}`}
-        style={{ height: "200px", width: "100%", overflowY: "scroll" }}
+        style={{
+          height: "auto",
+          maxHeight: "200px",
+          width: "100%",
+          overflowY: "scroll",
+        }}
       >
         {results
           .filter((result) => !result.symbol.includes("."))

@@ -1,8 +1,12 @@
 .delete-button {
   visibility: hidden;
-  display: inline-block;
+  border: none;
+  /* --bs-table-accent-bg: none;
+  background-color: transparent; */
 }
 
 .table-row:hover .delete-button {
   visibility: visible;
+  /* --bs-table-accent-bg: none;
+  background-color: transparent; */
 }
